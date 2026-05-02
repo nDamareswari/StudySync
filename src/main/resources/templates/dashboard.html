@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f7f7f5; /* soft white */
+        }
+
+        .container {
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 230px;
+            height: 100vh;
+            background: #556b2f; /* olive green */
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 30px;
+        }
+
+        .menu a {
+            display: block;
+            padding: 12px;
+            margin: 10px 0;
+            text-decoration: none;
+            color: white;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            background: #6b8e23; /* lighter olive */
+        }
+
+        /* Main */
+        .main {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .actions a {
+            margin-left: 10px;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+
+        .delete {
+            background: #d9534f;
+            color: white;
+        }
+
+        .download {
+            background: #556b2f;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>🌿 StudySync</h2>
+
+        <div class="menu">
+            <a href="/files">📂 Files</a>
+            <a href="/upload">⬆ Upload</a>
+            <a href="/chat">💬 Chat</a>
+            <a href="/settings">⚙ Settings</a>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+
+        <div class="card">
+            <h3>Welcome 👋</h3>
+            <p>Your calm and organized study space.</p>
+        </div>
+
+        <div class="card">
+            <h3>Recent Files</h3>
+
+            <ul>
+                <li th:each="file : ${files}">
+                    <span th:text="${file.fileName}"></span>
+
+                    <div class="actions">
+                        <a th:href="@{/download/{id}(id=${file.id})}" class="download">⬇</a>
+
+                        <a th:href="@{/delete/{id}(id=${file.id})}"
+                           onclick="return confirmDelete()"
+                           class="delete">❌</a>
+
+
+
+                                <script th:inline="javascript">
+                                    function confirmDelete() {
+                                    let role = /*[[${role}]]*/ "USER";
+
+                                    if (role === "ADMIN") {
+                                    return confirm("Delete this file?");
+                                } else {
+                                    alert("Only admin can delete this file!");
+                                    return false;
+                                }
+                                }
+
+                        </script>
+
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

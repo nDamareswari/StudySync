@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload File</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #556b2f;
+        }
+
+        .box {
+            width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+        }
+
+        input {
+            margin: 15px 0;
+        }
+
+        button {
+            padding: 10px;
+            background: #6c8cd5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Upload File 📂</h2>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file"><br>
+        <button type="submit">Upload</button>
+    </form>
+</div>
+
+</body>
+</html>
